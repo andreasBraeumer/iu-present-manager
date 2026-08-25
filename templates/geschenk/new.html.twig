@@ -1,0 +1,9 @@
+{% extends 'base_app.html.twig' %}
+
+{% block title %}{{ 'geschenke.ideeErfassen'|trans }}{% endblock %}
+
+{% block content %}
+    <h1 class="text-light">{{ 'geschenke.ideeErfassen'|trans }} – {{ person.vorname }}</h1>
+
+    {% include 'geschenk/_form.html.twig' %}
+{% endblock %}

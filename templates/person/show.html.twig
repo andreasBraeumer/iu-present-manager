@@ -1,0 +1,76 @@
+{% extends 'base_app.html.twig' %}
+
+{% block title %}{{ person.vorname }} {{ person.nachname }}{% endblock %}
+
+{% block content %}
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <div>
+            <h1 class="text-light mb-0">{{ person.vorname }} {{ person.nachname }}</h1>
+            {% if person.geburtsdatum %}
+                <p class="text-muted">{{ 'personen.feld.geburtsdatum'|trans }}: {{ person.geburtsdatum|date('d.m.Y') }}</p>
+            {% endif %}
+        </div>
+        <div class="d-flex gap-2">
+            <a href="{{ path('app_geschenk_new', {person: person.id}) }}" class="btn btn-primary">{{ 'geschenke.ideeErfassen'|trans }}</a>
+            <a href="{{ path('app_person_edit', {id: person.id}) }}" class="btn btn-outline-secondary">{{ 'personen.bearbeiten'|trans }}</a>
+            <form method="post" action="{{ path('app_person_delete', {id: person.id}) }}" onsubmit="return confirm('{{ 'personen.loeschenBestaetigen'|trans }}')">
+                <input type="hidden" name="_token" data-controller="csrf-protection" value="{{ csrf_token('submit') }}">
+                <button class="btn btn-outline-danger" type="submit">{{ 'personen.loeschen'|trans }}</button>
+            </form>
+        </div>
+    </div>
+
+    <h2 class="text-light h4">{{ 'personen.ideenTitel'|trans }}</h2>
+    {% if ideen is empty %}
+        <p class="text-light">{{ 'personen.keineIdeen'|trans }}</p>
+    {% else %}
+        <div class="row row-cols-1 row-cols-md-2 g-3 mb-4">
+            {% for geschenk in ideen %}
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <h5 class="card-title">{{ geschenk.titel }}</h5>
+                                <span class="badge {{ {
+                                    idee: 'bg-secondary',
+                                    geplant: 'bg-info',
+                                    besorgt: 'bg-warning'
+                                }[geschenk.status.value] }}">
+                                    {{ ('geschenke.status.' ~ geschenk.status.value)|trans }}
+                                </span>
+                            </div>
+                            <p class="card-text">{{ geschenk.beschreibung }}</p>
+                            <a href="{{ path('app_geschenk_edit', {id: geschenk.id}) }}" class="btn btn-sm btn-outline-primary">
+                                {{ 'geschenke.bearbeiten'|trans }}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <h2 class="text-light h4">{{ 'personen.vergangeneGeschenkeTitel'|trans }}</h2>
+    {% if vergangeneGeschenke is empty %}
+        <p class="text-light">{{ 'personen.keineVergangenenGeschenke'|trans }}</p>
+    {% else %}
+        <div class="row row-cols-1 row-cols-md-2 g-3">
+            {% for geschenk in vergangeneGeschenke %}
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <h5 class="card-title">{{ geschenk.titel }}</h5>
+                                <span class="badge bg-success">{{ 'geschenke.status.verschenkt'|trans }}</span>
+                            </div>
+                            <p class="card-text">{{ geschenk.beschreibung }}</p>
+                            {% if geschenk.datum %}
+                                <p class="text-muted">{{ geschenk.datum|date('d.m.Y') }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,10 @@
+{{ form_start(form) }}
+{{ form_row(form.titel) }}
+{{ form_row(form.beschreibung) }}
+{{ form_row(form.anlass) }}
+{{ form_row(form.status) }}
+{{ form_row(form.geschaetzterPreis) }}
+{{ form_row(form.datum) }}
+
+<button class="btn btn-primary" type="submit">{{ 'geschenke.speichern'|trans }}</button>
+{{ form_end(form) }}

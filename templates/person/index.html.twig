@@ -1,0 +1,32 @@
+{% extends 'base_app.html.twig' %}
+
+{% block title %}{{ 'personen.title'|trans }}{% endblock %}
+
+{% block content %}
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1 class="text-light mb-0">{{ 'personen.title'|trans }}</h1>
+        <a href="{{ path('app_person_new') }}" class="btn btn-primary">{{ 'personen.neu'|trans }}</a>
+    </div>
+
+    {% if personen is empty %}
+        <p class="text-light">{{ 'personen.leer'|trans }}</p>
+    {% else %}
+        <div class="row row-cols-1 row-cols-md-3 g-3">
+            {% for person in personen %}
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ person.vorname }} {{ person.nachname }}</h5>
+                            {% if person.geburtsdatum %}
+                                <p class="card-text text-muted">{{ 'personen.feld.geburtsdatum'|trans }}: {{ person.geburtsdatum|date('d.m.Y') }}</p>
+                            {% endif %}
+                            <a href="{{ path('app_person_show', {id: person.id}) }}" class="btn btn-sm btn-outline-primary">
+                                {{ 'personen.ansehen'|trans }}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endblock %}

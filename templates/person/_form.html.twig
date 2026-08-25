@@ -1,0 +1,9 @@
+{{ form_start(form) }}
+{{ form_row(form.vorname) }}
+{{ form_row(form.nachname) }}
+{{ form_row(form.geburtsdatum) }}
+{{ form_row(form.beziehung) }}
+{{ form_row(form.notizen) }}
+
+<button class="btn btn-primary" type="submit">{{ 'personen.speichern'|trans }}</button>
+{{ form_end(form) }}
