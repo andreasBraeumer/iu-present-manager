@@ -11,6 +11,12 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class DashboardController extends AbstractController
 {
+    #[Route('/', name: 'app_home')]
+    public function home(): Response
+    {
+        return $this->redirectToRoute('app_dashboard');
+    }
+
     #[Route('/dashboard', name: 'app_dashboard')]
     public function index(PersonRepository $personRepository, BenachrichtigungRepository $benachrichtigungRepository): Response
     {
