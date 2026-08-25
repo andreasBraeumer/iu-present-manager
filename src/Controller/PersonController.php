@@ -6,6 +6,7 @@ use App\Entity\Person;
 use App\Entity\User;
 use App\Enum\GeschenkStatus;
 use App\Form\PersonType;
+use App\Repository\GeschenkRepository;
 use App\Repository\PersonRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -57,7 +58,7 @@ final class PersonController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_person_show', methods: ['GET'])]
-    public function show(Person $person): Response
+    public function show(Person $person, GeschenkRepository $geschenkRepository): Response
     {
         $this->denyAccessUnlessOwner($person);
 
@@ -75,6 +76,7 @@ final class PersonController extends AbstractController
             'person' => $person,
             'ideen' => $ideen,
             'vergangeneGeschenke' => $vergangeneGeschenke,
+            'vorschlaege' => $geschenkRepository->findVorschlaege($person),
         ]);
     }
 

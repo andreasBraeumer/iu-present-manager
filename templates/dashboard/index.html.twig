@@ -23,6 +23,26 @@
         </div>
     {% endif %}
 
+    {% if benachrichtigungen is not empty %}
+        <h2 class="text-light h5 mt-4">{{ 'benachrichtigungen.title'|trans }}</h2>
+        <ul class="list-group mb-3">
+            {% for benachrichtigung in benachrichtigungen %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <span>
+                        <a href="{{ path('app_person_show', {id: benachrichtigung.person.id}) }}">
+                            {{ benachrichtigung.person.vorname }}
+                        </a>
+                        – {{ benachrichtigung.inhalt }}
+                    </span>
+                    <form method="post" action="{{ path('app_benachrichtigung_gelesen', {id: benachrichtigung.id}) }}">
+                        <input type="hidden" name="_token" data-controller="csrf-protection" value="{{ csrf_token('submit') }}">
+                        <button class="btn btn-sm btn-outline-secondary" type="submit">{{ 'benachrichtigungen.gelesen'|trans }}</button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
     <div class="d-flex gap-2 mt-3">
         <a href="{{ path('app_person_index') }}" class="btn btn-primary">{{ 'nav.personen'|trans }}</a>
         <a href="{{ path('app_anlass_index') }}" class="btn btn-secondary">{{ 'nav.anlaesse'|trans }}</a>

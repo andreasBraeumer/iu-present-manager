@@ -16,28 +16,15 @@ class FreigabeRepository extends ServiceEntityRepository
         parent::__construct($registry, Freigabe::class);
     }
 
-    //    /**
-    //     * @return Freigabe[] Returns an array of Freigabe objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('f')
-    //            ->andWhere('f.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('f.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
-
-    //    public function findOneBySomeField($value): ?Freigabe
-    //    {
-    //        return $this->createQueryBuilder('f')
-    //            ->andWhere('f.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+    public function findValidByToken(string $token): ?Freigabe
+    {
+        return $this->createQueryBuilder('f')
+            ->andWhere('f.token = :token')
+            ->andWhere('f.ablauf_am IS NULL OR f.ablauf_am > :jetzt')
+            ->setParameter('token', $token)
+            ->setParameter('jetzt', new \DateTimeImmutable())
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
 }

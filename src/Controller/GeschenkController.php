@@ -24,8 +24,16 @@ final class GeschenkController extends AbstractController
         $geschenk = new Geschenk();
         $geschenk->setPerson($person);
         $geschenk->setStatus(GeschenkStatus::Idee);
-        $geschenk->setAutomatischGeneriert(false);
         $geschenk->setErstelltAm(new \DateTimeImmutable());
+
+        // Vorbelegung aus einem Vorschlag (Funktion 12 – automatische Ideengenerierung)
+        if ($titel = $request->query->get('titel')) {
+            $geschenk->setTitel((string) $titel);
+        }
+        if ($beschreibung = $request->query->get('beschreibung')) {
+            $geschenk->setBeschreibung((string) $beschreibung);
+        }
+        $geschenk->setAutomatischGeneriert($request->query->getBoolean('automatisch'));
 
         $form = $this->createForm(GeschenkType::class, $geschenk);
         $form->handleRequest($request);
