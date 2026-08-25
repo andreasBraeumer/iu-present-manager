@@ -13,17 +13,18 @@ class Freigabe
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column]
-    private ?int $person_id = null;
+    #[ORM\ManyToOne(targetEntity: Person::class, inversedBy: 'freigaben')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Person $person = null;
 
-    #[ORM\Column(length: 128)]
+    #[ORM\Column(length: 128, unique: true)]
     private ?string $token = null;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $ersteöllt_am = null;
+    private ?\DateTimeImmutable $erstellt_am = null;
 
     #[ORM\Column(nullable: true)]
-    private ?\DateTimeImmutable $abaluf_am = null;
+    private ?\DateTimeImmutable $ablauf_am = null;
 
     public function getId(): ?int
     {
@@ -37,14 +38,14 @@ class Freigabe
         return $this;
     }
 
-    public function getPersonId(): ?int
+    public function getPerson(): ?Person
     {
-        return $this->person_id;
+        return $this->person;
     }
 
-    public function setPersonId(int $person_id): static
+    public function setPerson(?Person $person): static
     {
-        $this->person_id = $person_id;
+        $this->person = $person;
 
         return $this;
     }
@@ -61,26 +62,26 @@ class Freigabe
         return $this;
     }
 
-    public function getErsteölltAm(): ?\DateTimeImmutable
+    public function getErstelltAm(): ?\DateTimeImmutable
     {
-        return $this->ersteöllt_am;
+        return $this->erstellt_am;
     }
 
-    public function setErsteölltAm(\DateTimeImmutable $ersteöllt_am): static
+    public function setErstelltAm(\DateTimeImmutable $erstellt_am): static
     {
-        $this->ersteöllt_am = $ersteöllt_am;
+        $this->erstellt_am = $erstellt_am;
 
         return $this;
     }
 
-    public function getAbalufAm(): ?\DateTimeImmutable
+    public function getAblaufAm(): ?\DateTimeImmutable
     {
-        return $this->abaluf_am;
+        return $this->ablauf_am;
     }
 
-    public function setAbalufAm(?\DateTimeImmutable $abaluf_am): static
+    public function setAblaufAm(?\DateTimeImmutable $ablauf_am): static
     {
-        $this->abaluf_am = $abaluf_am;
+        $this->ablauf_am = $ablauf_am;
 
         return $this;
     }

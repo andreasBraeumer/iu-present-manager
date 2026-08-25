@@ -1,0 +1,9 @@
+{% extends 'base_app.html.twig' %}
+
+{% block title %}{{ person.vorname }} {{ 'personen.bearbeiten'|trans }}{% endblock %}
+
+{% block content %}
+    <h1 class="text-light">{{ person.vorname }} {{ 'personen.bearbeiten'|trans }}</h1>
+
+    {% include 'person/_form.html.twig' %}
+{% endblock %}

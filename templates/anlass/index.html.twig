@@ -1,0 +1,46 @@
+{% extends 'base_app.html.twig' %}
+
+{% block title %}{{ 'anlaesse.title'|trans }}{% endblock %}
+
+{% block content %}
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1 class="text-light mb-0">{{ 'anlaesse.title'|trans }}</h1>
+        <a href="{{ path('app_anlass_new') }}" class="btn btn-primary">{{ 'anlaesse.neu'|trans }}</a>
+    </div>
+
+    <table class="table table-dark table-striped align-middle">
+        <thead>
+            <tr>
+                <th>{{ 'anlaesse.feld.bezeichnung'|trans }}</th>
+                <th>{{ 'anlaesse.feld.datum'|trans }}</th>
+                <th>{{ 'anlaesse.feld.wiederkehrend'|trans }}</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for anlass in anlaesse %}
+                <tr>
+                    <td>
+                        {{ anlass.bezeichnung }}
+                        {% if anlass.istStandard %}
+                            <span class="badge bg-secondary">{{ 'anlaesse.standard'|trans }}</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ anlass.datum ? anlass.datum|date('d.m.Y') : '' }}</td>
+                    <td>{{ anlass.wiederkehrend ? 'anlaesse.ja'|trans : 'anlaesse.nein'|trans }}</td>
+                    <td class="text-end">
+                        <a href="{{ path('app_anlass_edit', {id: anlass.id}) }}" class="btn btn-sm btn-outline-primary">
+                            {{ 'anlaesse.bearbeiten'|trans }}
+                        </a>
+                        {% if not anlass.istStandard %}
+                            <form method="post" action="{{ path('app_anlass_delete', {id: anlass.id}) }}" class="d-inline" onsubmit="return confirm('{{ 'anlaesse.loeschenBestaetigen'|trans }}')">
+                                <input type="hidden" name="_token" data-controller="csrf-protection" value="{{ csrf_token('submit') }}">
+                                <button class="btn btn-sm btn-outline-danger" type="submit">{{ 'anlaesse.loeschen'|trans }}</button>
+                            </form>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

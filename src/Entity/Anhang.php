@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Enum\AnhangTyp;
 use App\Repository\AnhangRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -13,11 +14,12 @@ class Anhang
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column]
-    private ?int $geschenk_id = null;
+    #[ORM\ManyToOne(targetEntity: Geschenk::class, inversedBy: 'anhaenge')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Geschenk $geschenk = null;
 
-    #[ORM\Column(length: 32)]
-    private ?string $typ = null;
+    #[ORM\Column(enumType: AnhangTyp::class)]
+    private ?AnhangTyp $typ = null;
 
     #[ORM\Column(length: 255)]
     private ?string $inhalt = null;
@@ -34,24 +36,24 @@ class Anhang
         return $this;
     }
 
-    public function getGeschenkId(): ?int
+    public function getGeschenk(): ?Geschenk
     {
-        return $this->geschenk_id;
+        return $this->geschenk;
     }
 
-    public function setGeschenkId(int $geschenk_id): static
+    public function setGeschenk(?Geschenk $geschenk): static
     {
-        $this->geschenk_id = $geschenk_id;
+        $this->geschenk = $geschenk;
 
         return $this;
     }
 
-    public function getTyp(): ?string
+    public function getTyp(): ?AnhangTyp
     {
         return $this->typ;
     }
 
-    public function setTyp(string $typ): static
+    public function setTyp(AnhangTyp $typ): static
     {
         $this->typ = $typ;
 

@@ -3,6 +3,9 @@
 namespace App\Entity;
 
 use App\Repository\AnlassRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: AnlassRepository::class)]
@@ -19,11 +22,22 @@ class Anlass
     #[ORM\Column]
     private ?bool $ist_standard = null;
 
-    #[ORM\Column(nullable: true)]
+    #[ORM\Column(type: Types::DATE_IMMUTABLE, nullable: true)]
     private ?\DateTimeImmutable $datum = null;
 
     #[ORM\Column(nullable: true)]
     private ?bool $wiederkehrend = null;
+
+    /**
+     * @var Collection<int, Geschenk>
+     */
+    #[ORM\OneToMany(mappedBy: 'anlass', targetEntity: Geschenk::class)]
+    private Collection $geschenke;
+
+    public function __construct()
+    {
+        $this->geschenke = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -81,6 +95,35 @@ class Anlass
     public function setWiederkehrend(?bool $wiederkehrend): static
     {
         $this->wiederkehrend = $wiederkehrend;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Geschenk>
+     */
+    public function getGeschenke(): Collection
+    {
+        return $this->geschenke;
+    }
+
+    public function addGeschenk(Geschenk $geschenk): static
+    {
+        if (!$this->geschenke->contains($geschenk)) {
+            $this->geschenke->add($geschenk);
+            $geschenk->setAnlass($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGeschenk(Geschenk $geschenk): static
+    {
+        if ($this->geschenke->removeElement($geschenk)) {
+            if ($geschenk->getAnlass() === $this) {
+                $geschenk->setAnlass(null);
+            }
+        }
 
         return $this;
     }

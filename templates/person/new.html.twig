@@ -1,0 +1,9 @@
+{% extends 'base_app.html.twig' %}
+
+{% block title %}{{ 'personen.neu'|trans }}{% endblock %}
+
+{% block content %}
+    <h1 class="text-light">{{ 'personen.neu'|trans }}</h1>
+
+    {% include 'person/_form.html.twig' %}
+{% endblock %}
