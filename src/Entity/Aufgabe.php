@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\AufgabeRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: AufgabeRepository::class)]
@@ -13,8 +14,9 @@ class Aufgabe
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column]
-    private ?int $geschenk_id = null;
+    #[ORM\ManyToOne(targetEntity: Geschenk::class, inversedBy: 'aufgaben')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Geschenk $geschenk = null;
 
     #[ORM\Column(length: 255)]
     private ?string $beschreibung = null;
@@ -22,7 +24,7 @@ class Aufgabe
     #[ORM\Column]
     private ?bool $erledigt = null;
 
-    #[ORM\Column(nullable: true)]
+    #[ORM\Column(type: Types::DATE_IMMUTABLE, nullable: true)]
     private ?\DateTimeImmutable $faellig_am = null;
 
     public function getId(): ?int
@@ -37,14 +39,14 @@ class Aufgabe
         return $this;
     }
 
-    public function getGeschenkId(): ?int
+    public function getGeschenk(): ?Geschenk
     {
-        return $this->geschenk_id;
+        return $this->geschenk;
     }
 
-    public function setGeschenkId(int $geschenk_id): static
+    public function setGeschenk(?Geschenk $geschenk): static
     {
-        $this->geschenk_id = $geschenk_id;
+        $this->geschenk = $geschenk;
 
         return $this;
     }
