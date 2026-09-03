@@ -40,15 +40,24 @@ class PersonRepository extends ServiceEntityRepository
     {
         $naechsterMonat = (int) (new \DateTimeImmutable('first day of next month'))->format('n');
 
-        return $this->createQueryBuilder('p')
+        $personen = $this->createQueryBuilder('p')
             ->andWhere('p.user = :user')
             ->andWhere('p.geburtsdatum IS NOT NULL')
-            ->andWhere('MONTH(p.geburtsdatum) = :monat')
             ->setParameter('user', $user)
-            ->setParameter('monat', $naechsterMonat)
-            ->orderBy('p.geburtsdatum', 'ASC')
             ->getQuery()
             ->getResult()
         ;
+
+        $gefiltert = array_values(array_filter(
+            $personen,
+            static fn (Person $person): bool => (int) $person->getGeburtsdatum()->format('n') === $naechsterMonat
+        ));
+
+        usort(
+            $gefiltert,
+            static fn (Person $a, Person $b): int => $a->getGeburtsdatum()->format('d') <=> $b->getGeburtsdatum()->format('d')
+        );
+
+        return $gefiltert;
     }
 }

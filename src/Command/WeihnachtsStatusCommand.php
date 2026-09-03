@@ -8,6 +8,7 @@ use App\Entity\Geschenk;
 use App\Entity\Person;
 use App\Enum\GeschenkStatus;
 use App\Repository\BenachrichtigungRepository;
+use App\Service\StandardAnlaesse;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -30,6 +31,7 @@ class WeihnachtsStatusCommand extends Command
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
         private readonly BenachrichtigungRepository $benachrichtigungRepository,
+        private readonly StandardAnlaesse $standardAnlaesse,
     ) {
         parent::__construct();
     }
@@ -44,6 +46,8 @@ class WeihnachtsStatusCommand extends Command
 
             return Command::SUCCESS;
         }
+
+        $this->standardAnlaesse->sicherstellen();
 
         $weihnachten = $this->entityManager->getRepository(Anlass::class)->findOneBy(['bezeichnung' => 'Weihnachten']);
 
