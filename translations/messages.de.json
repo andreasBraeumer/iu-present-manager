@@ -5,13 +5,29 @@
         "logout": "Abmelden",
         "username": "Benutzername",
         "password": "Passwort",
-        "callToAction": "Anmelden"
+        "callToAction": "Anmelden",
+        "forgotPassword": "Passwort vergessen?"
     },
     "register": {
         "toLogin": "Einloggen",
         "title": "Registrierung",
-        "callToAction": "Registrieren",
-        "agreeTerms": "Ich stimme den Nutzungsbedingungen zu"
+        "callToAction": "Registrieren"
+    },
+    "resetPassword": {
+        "title": "Passwort zurücksetzen",
+        "hinweis": "Gib deinen Benutzernamen ein, um einen Link zum Zurücksetzen deines Passworts zu erhalten.",
+        "linkAnfordern": "Link anfordern",
+        "linkErstellt": "Link erstellt. Öffne folgenden Link, um dein Passwort zurückzusetzen:",
+        "benutzerNichtGefunden": "Es wurde kein Benutzer mit diesem Benutzernamen gefunden.",
+        "zurueckZumLogin": "Zurück zum Login",
+        "neuesPasswortTitle": "Neues Passwort vergeben",
+        "neuesPasswort": "Neues Passwort",
+        "neuesPasswortWiederholen": "Passwort wiederholen",
+        "speichern": "Passwort speichern",
+        "linkUngueltig": "Dieser Link ist ungültig oder abgelaufen. Bitte fordere einen neuen an.",
+        "passwortZuKurz": "Das Passwort muss mindestens 6 Zeichen lang sein.",
+        "passwoerterStimmenNichtUeberein": "Die Passwörter stimmen nicht überein.",
+        "erfolgreich": "Dein Passwort wurde geändert. Du kannst dich jetzt anmelden."
     },
     "nav": {
         "brand": "Geschenke-Manager",
@@ -23,7 +39,8 @@
     "dashboard": {
         "title": "Dashboard",
         "keineGeburtstage": "Im nächsten Monat stehen keine Geburtstage an.",
-        "geburtstageTitel": "Geburtstage im nächsten Monat"
+        "geburtstageTitel": "Geburtstage im nächsten Monat",
+        "bekannteIdeen": "Bekannte Ideen"
     },
     "benachrichtigungen": {
         "title": "Benachrichtigungen",
@@ -142,9 +159,11 @@
         "loeschen": "Löschen",
         "hinzufuegen": "Hinzufügen",
         "ungueltig": "Anhang konnte nicht gespeichert werden.",
+        "optionalHinweis": "Optional: direkt einen Text, Link oder ein Bild zur Idee hinzufügen.",
         "feld": {
             "typ": "Typ",
-            "inhalt": "Inhalt"
+            "inhalt": "Inhalt",
+            "bilddatei": "Bild hochladen"
         },
         "typ": {
             "text": "Text",

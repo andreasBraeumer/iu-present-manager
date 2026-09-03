@@ -33,6 +33,18 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->getEntityManager()->flush();
     }
 
+    public function findValidByResetToken(string $token): ?User
+    {
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.resetToken = :token')
+            ->andWhere('u.resetTokenExpiresAt > :jetzt')
+            ->setParameter('token', $token)
+            ->setParameter('jetzt', new \DateTimeImmutable())
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
+
     //    /**
     //     * @return User[] Returns an array of User objects
     //     */
