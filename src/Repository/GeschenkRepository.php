@@ -4,7 +4,6 @@ namespace App\Repository;
 
 use App\Entity\Geschenk;
 use App\Entity\Person;
-use App\Enum\GeschenkStatus;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -19,9 +18,6 @@ class GeschenkRepository extends ServiceEntityRepository
     }
 
     /**
-     * Vorschläge für neue Ideen: Titel bereits verschenkter Geschenke anderer Personen desselben Users,
-     * die diese Person noch nicht hat.
-     *
      * @return array<int, array{titel: string, beschreibung: ?string}>
      */
     public function findVorschlaege(Person $person, int $limit = 5): array
@@ -36,10 +32,8 @@ class GeschenkRepository extends ServiceEntityRepository
             ->join('g.person', 'p')
             ->andWhere('p.user = :user')
             ->andWhere('p != :person')
-            ->andWhere('g.status = :status')
             ->setParameter('user', $person->getUser())
             ->setParameter('person', $person)
-            ->setParameter('status', GeschenkStatus::Verschenkt)
             ->orderBy('g.erstellt_am', 'DESC')
             ->getQuery()
             ->getArrayResult()
