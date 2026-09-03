@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ 'register.title'|trans }} {% endblock %}
+
+{% block body %}
+    <div class="d-flex align-items-center vh-100">
+        <main class="form-signin w-100 m-auto">
+
+            <h1 class="h3 mb-3 fw-normal">{{ 'register.title'|trans }}</h1>
+
+            {{ form_errors(registrationForm) }}
+
+            {{ form_start(registrationForm) }}
+
+            {{ form_row(registrationForm.username, {
+                row_attr: {class: 'form-floating'},
+                attr: {placeholder: 'login.username'|trans},
+                label: 'login.username'|trans
+            }) }}
+
+            {{ form_row(registrationForm.plainPassword, {
+                row_attr: {class: 'form-floating mt-2'},
+                attr: {placeholder: 'login.password'|trans},
+                label: 'login.password'|trans
+            }) }}
+
+            <button class="btn btn-primary w-100 py-2" type="submit">
+                {{ 'register.callToAction'|trans }}
+            </button>
+
+            {{ form_end(registrationForm) }}
+
+            <a href="{{ path('app_login') }}" class="d-flex justify-content-center w-100 py-2">
+                {{ 'register.toLogin'|trans }}
+            </a>
+        </main>
+    </div>
+{% endblock %}

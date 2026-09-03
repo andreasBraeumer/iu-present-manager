@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Geschenk;
+use App\Entity\Person;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -16,28 +17,46 @@ class GeschenkRepository extends ServiceEntityRepository
         parent::__construct($registry, Geschenk::class);
     }
 
-    //    /**
-    //     * @return Geschenk[] Returns an array of Geschenk objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('g')
-    //            ->andWhere('g.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('g.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    /**
+     * @return array<int, array{titel: string, beschreibung: ?string}>
+     */
+    public function findVorschlaege(Person $person, int $limit = 5): array
+    {
+        $vorhandeneTitel = array_map(
+            static fn (Geschenk $geschenk) => $geschenk->getTitel(),
+            $person->getGeschenke()->toArray(),
+        );
 
-    //    public function findOneBySomeField($value): ?Geschenk
-    //    {
-    //        return $this->createQueryBuilder('g')
-    //            ->andWhere('g.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+        $rows = $this->createQueryBuilder('g')
+            ->select('g.titel AS titel', 'g.beschreibung AS beschreibung')
+            ->join('g.person', 'p')
+            ->andWhere('p.user = :user')
+            ->andWhere('p != :person')
+            ->setParameter('user', $person->getUser())
+            ->setParameter('person', $person)
+            ->orderBy('g.erstellt_am', 'DESC')
+            ->getQuery()
+            ->getArrayResult()
+        ;
+
+        $vorschlaege = [];
+        foreach ($rows as $row) {
+            if (\in_array($row['titel'], $vorhandeneTitel, true)) {
+                continue;
+            }
+
+            if (!isset($vorschlaege[$row['titel']])) {
+                $vorschlaege[$row['titel']] = [
+                    'titel' => $row['titel'],
+                    'beschreibung' => $row['beschreibung'],
+                ];
+            }
+
+            if (\count($vorschlaege) >= $limit) {
+                break;
+            }
+        }
+
+        return array_values($vorschlaege);
+    }
 }

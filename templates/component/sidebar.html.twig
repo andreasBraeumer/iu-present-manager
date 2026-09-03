@@ -1,0 +1,45 @@
+<div class="d-flex flex-column flex-shrink-0 p-3 kartei-register">
+    <a
+        href="{{ path('app_dashboard') }}"
+        class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-decoration-none kartei-register__marke"
+    >
+        <span>{{ 'nav.brand'|trans }}</span>
+    </a>
+    <hr />
+    <ul class="nav flex-column mb-auto kartei-register__nav">
+        <li class="nav-item">
+            <a href="{{ path('app_dashboard') }}" class="nav-link {{ app.current_route == 'app_dashboard' ? 'active' : '' }}">
+                {{ 'nav.dashboard'|trans }}
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ path('app_person_index') }}" class="nav-link {{ app.current_route starts with 'app_person' ? 'active' : '' }}">
+                {{ 'nav.personen'|trans }}
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ path('app_anlass_index') }}" class="nav-link {{ app.current_route starts with 'app_anlass' ? 'active' : '' }}">
+                {{ 'nav.anlaesse'|trans }}
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ path('app_export_html') }}" class="nav-link {{ app.current_route == 'app_export_html' ? 'active' : '' }}">
+                {{ 'nav.export'|trans }}
+            </a>
+        </li>
+    </ul>
+    <hr />
+    <div class="dropdown">
+        <a
+            href="#"
+            class="d-flex align-items-center text-decoration-none dropdown-toggle"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+        >
+            <strong>{{ app.user ? app.user.userIdentifier : '' }}</strong>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+            <li><a class="dropdown-item" href="{{ path('app_logout') }}">{{ 'login.logout'|trans }}</a></li>
+        </ul>
+    </div>
+</div>

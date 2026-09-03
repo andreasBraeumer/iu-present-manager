@@ -1,0 +1,92 @@
+{% extends 'base_app.html.twig' %}
+
+{% block title %}{{ geschenk.titel }}{% endblock %}
+
+{% block content %}
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1 class="mb-0">{{ geschenk.titel }}</h1>
+        <a href="{{ path('app_person_show', {id: geschenk.person.id}) }}" class="btn btn-outline-secondary">
+            {{ 'geschenke.zurueckZurPerson'|trans }}
+        </a>
+    </div>
+
+    {% include 'geschenk/_form.html.twig' %}
+
+    <hr class="my-4">
+
+    <h2 class="kartei-buchstabe">{{ 'aufgaben.title'|trans }}</h2>
+    <ul class="list-group mb-3">
+        {% for aufgabe in geschenk.aufgaben %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span class="{{ aufgabe.erledigt ? 'text-decoration-line-through text-muted' : '' }}">
+                    {{ aufgabe.beschreibung }}
+                    {% if aufgabe.faelligAm %}
+                        <small class="text-muted">({{ aufgabe.faelligAm|date('d.m.Y') }})</small>
+                    {% endif %}
+                </span>
+                <span class="d-flex gap-2">
+                    <form method="post" action="{{ path('app_aufgabe_toggle', {id: aufgabe.id}) }}">
+                        <input type="hidden" name="_token" data-controller="csrf-protection" value="{{ csrf_token('submit') }}">
+                        <button class="btn btn-sm btn-outline-success" type="submit">
+                            {{ aufgabe.erledigt ? 'aufgaben.wiederOeffnen'|trans : 'aufgaben.erledigen'|trans }}
+                        </button>
+                    </form>
+                    <form method="post" action="{{ path('app_aufgabe_delete', {id: aufgabe.id}) }}">
+                        <input type="hidden" name="_token" data-controller="csrf-protection" value="{{ csrf_token('submit') }}">
+                        <button class="btn btn-sm btn-outline-danger" type="submit">{{ 'aufgaben.loeschen'|trans }}</button>
+                    </form>
+                </span>
+            </li>
+        {% else %}
+            <li class="list-group-item">{{ 'aufgaben.leer'|trans }}</li>
+        {% endfor %}
+    </ul>
+    {{ form_start(aufgabeForm, {action: path('app_aufgabe_new', {geschenk: geschenk.id}), method: 'POST'}) }}
+    <div class="d-flex gap-2 align-items-end">
+        {{ form_row(aufgabeForm.beschreibung, {label: false, attr: {placeholder: 'aufgaben.feld.beschreibung'|trans}}) }}
+        {{ form_row(aufgabeForm.faelligAm, {label: false}) }}
+        <button class="btn btn-secondary mb-3" type="submit">{{ 'aufgaben.hinzufuegen'|trans }}</button>
+    </div>
+    {{ form_end(aufgabeForm) }}
+
+    <hr class="my-4">
+
+    <h2 class="kartei-buchstabe">{{ 'anhaenge.title'|trans }}</h2>
+    <ul class="list-group mb-3">
+        {% for anhang in geschenk.anhaenge %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span>
+                    <span class="badge bg-secondary">{{ ('anhaenge.typ.' ~ anhang.typ.value)|trans }}</span>
+                    {% if anhang.typ.value == 'link' %}
+                        <a href="{{ anhang.inhalt }}" target="_blank" rel="noopener">{{ anhang.inhalt }}</a>
+                    {% elseif anhang.typ.value == 'bild' %}
+                        <a href="{{ anhang.inhalt }}" target="_blank" rel="noopener">
+                            <img src="{{ anhang.inhalt }}" alt="" style="max-height: 60px;">
+                        </a>
+                    {% else %}
+                        {{ anhang.inhalt }}
+                    {% endif %}
+                </span>
+                <form method="post" action="{{ path('app_anhang_delete', {id: anhang.id}) }}">
+                    <input type="hidden" name="_token" value="{{ csrf_token('submit') }}">
+                    <button class="btn btn-sm btn-outline-danger" type="submit">{{ 'anhaenge.loeschen'|trans }}</button>
+                </form>
+            </li>
+        {% else %}
+            <li class="list-group-item">{{ 'anhaenge.leer'|trans }}</li>
+        {% endfor %}
+    </ul>
+    {{ form_start(anhangForm, {action: path('app_anhang_new', {geschenk: geschenk.id}), method: 'POST'}) }}
+    <div class="d-flex gap-2 align-items-end">
+        {{ form_row(anhangForm.typ, {label: false}) }}
+        {{ form_row(anhangForm.inhalt, {label: false, attr: {placeholder: 'anhaenge.feld.inhalt'|trans}}) }}
+        {{ form_row(anhangForm.bilddatei, {label: false}) }}
+        <button class="btn btn-secondary mb-3" type="submit">{{ 'anhaenge.hinzufuegen'|trans }}</button>
+    </div>
+    {{ form_end(anhangForm) }}
+
+    <form method="post" action="{{ path('app_geschenk_delete', {id: geschenk.id}) }}" onsubmit="return confirm('{{ 'geschenke.loeschenBestaetigen'|trans }}')">
+        <input type="hidden" name="_token" value="{{ csrf_token('submit') }}">
+        <button class="btn btn-outline-danger" type="submit">{{ 'geschenke.loeschen'|trans }}</button>
+    </form>
+{% endblock %}

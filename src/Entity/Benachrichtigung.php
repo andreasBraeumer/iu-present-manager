@@ -13,8 +13,9 @@ class Benachrichtigung
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column]
-    private ?int $person_id = null;
+    #[ORM\ManyToOne(targetEntity: Person::class, inversedBy: 'benachrichtigungen')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Person $person = null;
 
     #[ORM\Column(length: 48)]
     private ?string $typ = null;
@@ -43,14 +44,14 @@ class Benachrichtigung
         return $this;
     }
 
-    public function getPersonId(): ?int
+    public function getPerson(): ?Person
     {
-        return $this->person_id;
+        return $this->person;
     }
 
-    public function setPersonId(int $person_id): static
+    public function setPerson(?Person $person): static
     {
-        $this->person_id = $person_id;
+        $this->person = $person;
 
         return $this;
     }

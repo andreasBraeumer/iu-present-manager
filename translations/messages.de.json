@@ -1,0 +1,174 @@
+{
+    "login": {
+        "toRegister": "Registriere dich hier",
+        "title": "Login",
+        "logout": "Abmelden",
+        "username": "Benutzername",
+        "password": "Passwort",
+        "callToAction": "Anmelden",
+        "forgotPassword": "Passwort vergessen?"
+    },
+    "register": {
+        "toLogin": "Einloggen",
+        "title": "Registrierung",
+        "callToAction": "Registrieren"
+    },
+    "resetPassword": {
+        "title": "Passwort zurücksetzen",
+        "hinweis": "Gib deinen Benutzernamen ein, um einen Link zum Zurücksetzen deines Passworts zu erhalten.",
+        "linkAnfordern": "Link anfordern",
+        "linkErstellt": "Link erstellt. Öffne folgenden Link, um dein Passwort zurückzusetzen:",
+        "benutzerNichtGefunden": "Es wurde kein Benutzer mit diesem Benutzernamen gefunden.",
+        "zurueckZumLogin": "Zurück zum Login",
+        "neuesPasswortTitle": "Neues Passwort vergeben",
+        "neuesPasswort": "Neues Passwort",
+        "neuesPasswortWiederholen": "Passwort wiederholen",
+        "speichern": "Passwort speichern",
+        "linkUngueltig": "Dieser Link ist ungültig oder abgelaufen. Bitte fordere einen neuen an.",
+        "passwortZuKurz": "Das Passwort muss mindestens 6 Zeichen lang sein.",
+        "passwoerterStimmenNichtUeberein": "Die Passwörter stimmen nicht überein.",
+        "erfolgreich": "Dein Passwort wurde geändert. Du kannst dich jetzt anmelden."
+    },
+    "nav": {
+        "brand": "Geschenke-Manager",
+        "dashboard": "Dashboard",
+        "personen": "Personen",
+        "anlaesse": "Anlässe",
+        "export": "Vollständige Liste"
+    },
+    "dashboard": {
+        "title": "Dashboard",
+        "keineGeburtstage": "Im nächsten Monat stehen keine Geburtstage an.",
+        "geburtstageTitel": "Geburtstage im nächsten Monat",
+        "bekannteIdeen": "Bekannte Ideen"
+    },
+    "benachrichtigungen": {
+        "title": "Benachrichtigungen",
+        "gelesen": "Gelesen"
+    },
+    "freigabe": {
+        "title": "Geteilte Ideen",
+        "hinweis": "Diese Seite ist über einen geteilten Link ohne Anmeldung abrufbar.",
+        "erstellen": "Link erstellen",
+        "erstellt": "Link erstellt.",
+        "widerrufen": "Widerrufen",
+        "ablaeuftAm": "läuft ab am"
+    },
+    "export": {
+        "title": "Vollständige Liste",
+        "drucken": "Drucken",
+        "zurueck": "Zurück zum Dashboard"
+    },
+    "vorschlaege": {
+        "title": "Vorschläge",
+        "uebernehmen": "Übernehmen"
+    },
+    "error": {
+        "404": {
+            "title": "Seite nicht gefunden",
+            "text": "Die aufgerufene Seite existiert nicht oder wurde verschoben."
+        },
+        "generic": {
+            "title": "Ein Fehler ist aufgetreten",
+            "text": "Bitte versuche es später erneut."
+        },
+        "zurueck": "Zurück zur Startseite"
+    },
+    "personen": {
+        "title": "Personen",
+        "neu": "Person anlegen",
+        "bearbeiten": "bearbeiten",
+        "speichern": "Speichern",
+        "leer": "Noch keine Personen angelegt.",
+        "ansehen": "Ansehen",
+        "ideenTitel": "Ideen",
+        "keineIdeen": "Noch keine Geschenkideen erfasst.",
+        "vergangeneGeschenkeTitel": "Vergangene Geschenke",
+        "keineVergangenenGeschenke": "Noch keine vergangenen Geschenke dokumentiert.",
+        "loeschen": "Löschen",
+        "loeschenBestaetigen": "Diese Person inkl. aller Geschenke wirklich löschen?",
+        "gespeichert": "Person gespeichert.",
+        "geloescht": "Person gelöscht.",
+        "feld": {
+            "vorname": "Vorname",
+            "nachname": "Nachname",
+            "geburtsdatum": "Geburtstag",
+            "beziehung": "Beziehung",
+            "notizen": "Notizen"
+        }
+    },
+    "anlaesse": {
+        "title": "Anlässe",
+        "neu": "Anlass anlegen",
+        "bearbeiten": "bearbeiten",
+        "speichern": "Speichern",
+        "standard": "Standard",
+        "ja": "Ja",
+        "nein": "Nein",
+        "loeschen": "Löschen",
+        "loeschenBestaetigen": "Diesen Anlass wirklich löschen?",
+        "standardNichtLoeschbar": "Standard-Anlässe können nicht gelöscht werden.",
+        "gespeichert": "Anlass gespeichert.",
+        "geloescht": "Anlass gelöscht.",
+        "feld": {
+            "bezeichnung": "Bezeichnung",
+            "datum": "Datum",
+            "wiederkehrend": "Wiederkehrend"
+        }
+    },
+    "geschenke": {
+        "ideeErfassen": "Idee erfassen",
+        "bearbeiten": "bearbeiten",
+        "speichern": "Speichern",
+        "zurueckZurPerson": "Zurück zur Person",
+        "loeschen": "Löschen",
+        "loeschenBestaetigen": "Dieses Geschenk wirklich löschen?",
+        "gespeichert": "Geschenk gespeichert.",
+        "geloescht": "Geschenk gelöscht.",
+        "feld": {
+            "titel": "Titel",
+            "beschreibung": "Beschreibung",
+            "anlass": "Anlass",
+            "status": "Status",
+            "geschaetzterPreis": "Geschätzter Preis",
+            "datum": "Datum"
+        },
+        "status": {
+            "idee": "Idee",
+            "geplant": "Geplant",
+            "besorgt": "Besorgt",
+            "verschenkt": "Verschenkt"
+        }
+    },
+    "aufgaben": {
+        "title": "Offene Aufgaben",
+        "leer": "Noch keine Aufgaben.",
+        "erledigen": "Erledigt",
+        "wiederOeffnen": "Wieder öffnen",
+        "loeschen": "Löschen",
+        "hinzufuegen": "Hinzufügen",
+        "ungueltig": "Aufgabe konnte nicht gespeichert werden.",
+        "feld": {
+            "beschreibung": "Beschreibung",
+            "faelligAm": "Fällig am"
+        }
+    },
+    "anhaenge": {
+        "title": "Anhänge",
+        "leer": "Noch keine Anhänge.",
+        "loeschen": "Löschen",
+        "hinzufuegen": "Hinzufügen",
+        "ungueltig": "Anhang konnte nicht gespeichert werden.",
+        "optionalHinweis": "Optional: direkt einen Text, Link oder ein Bild zur Idee hinzufügen.",
+        "feld": {
+            "typ": "Typ",
+            "inhalt": "Inhalt",
+            "bilddatei": "Bild hochladen"
+        },
+        "typ": {
+            "text": "Text",
+            "link": "Link",
+            "bild": "Bild"
+        }
+    }
+}

@@ -1,9 +1,9 @@
 # Docker-Setup für ein Symfony 7.4 Projekt
-# Services: php (PHP-FPM 8.4) + nginx (HTTP) + database (PostgreSQL)
+# Services: php (PHP-FPM 8.4) + nginx (HTTP) + database (MariaDB)
 #
 # Ports nach außen:
 #   - HTTP-Server:  http://localhost:8080
-#   - PostgreSQL:   localhost:5432  (z.B. für DBeaver / TablePlus / psql)
+#   - MariaDB:      localhost:3306  (z.B. für DBeaver / TablePlus / mysql-Client)
 
 services:
   php:
@@ -16,7 +16,7 @@ services:
       - ./:/var/www/app:cached
     environment:
       # Verbindung zur Datenbank unten (Hostname = Servicename "database")
-      DATABASE_URL: "postgresql://app:app@database:5432/app?serverVersion=16&charset=utf8"
+      DATABASE_URL: "mysql://app:app@database:3306/app?serverVersion=mariadb-10.11.2&charset=utf8mb4"
     depends_on:
       database:
         condition: service_healthy
@@ -34,20 +34,21 @@ services:
       - php
 
   database:
-    image: postgres:16-alpine
+    image: mariadb:10.11
     container_name: symfony_database
     environment:
-      POSTGRES_DB: app
-      POSTGRES_USER: app
-      POSTGRES_PASSWORD: app
+      MARIADB_DATABASE: app
+      MARIADB_USER: app
+      MARIADB_PASSWORD: app
+      MARIADB_RANDOM_ROOT_PASSWORD: "yes"
     ports:
       # DB-Port nach außen, damit du mit einem GUI-Tool draufkommst
-      - "5432:5432"
+      - "3306:3306"
     volumes:
       # Daten überleben "docker compose down" (nur "down -v" löscht sie)
-      - database_data:/var/lib/postgresql/data
+      - database_data:/var/lib/mysql
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U app -d app"]
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
       interval: 5s
       timeout: 5s
       retries: 10

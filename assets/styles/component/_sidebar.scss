@@ -1,0 +1,44 @@
+.sidebar-main {
+    height: 100vh;
+    max-height: 100vh;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+.kartei-register {
+    width: 280px;
+    background-color: var(--kartei-papier-karte);
+    border-right: 1px solid var(--kartei-rand);
+}
+
+.kartei-register__marke {
+    font-family: var(--bs-font-monospace);
+    font-size: 1.1rem;
+    letter-spacing: 0.02em;
+    color: var(--kartei-tinte);
+}
+
+.kartei-register__nav .nav-link {
+    position: relative;
+    font-family: var(--bs-font-monospace);
+    font-size: 0.85rem;
+    letter-spacing: 0.02em;
+    color: var(--kartei-tinte);
+    border-radius: var(--bs-border-radius);
+    padding: 0.55rem 0.75rem;
+}
+
+.kartei-register__nav .nav-link:hover {
+    background-color: rgba(122, 46, 46, 0.08);
+}
+
+.kartei-register__nav .nav-link.active {
+    background-color: var(--kartei-akzent);
+    color: var(--kartei-papier);
+    font-weight: 600;
+}
+
+.kartei-register hr {
+    border-color: var(--kartei-rand);
+    opacity: 1;
+}

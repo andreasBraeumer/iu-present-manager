@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'freigabe.title'|trans }} – {{ person.vorname }}{% endblock %}
+
+{% block body %}
+    <div class="container py-4">
+        <h1>{{ 'freigabe.title'|trans }} – {{ person.vorname }}</h1>
+        <p class="text-muted">{{ 'freigabe.hinweis'|trans }}</p>
+
+        {% if ideen is empty %}
+            <p>{{ 'personen.keineIdeen'|trans }}</p>
+        {% else %}
+            <div class="row row-cols-1 row-cols-md-2 g-3">
+                {% for geschenk in ideen %}
+                    <div class="col">
+                        <div class="kartei-karte h-100 p-3">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <h5 class="mb-1">{{ geschenk.titel }}</h5>
+                                <span class="kartei-reiter kartei-reiter--{{ geschenk.status.value }}">
+                                    {{ ('geschenke.status.' ~ geschenk.status.value)|trans }}
+                                </span>
+                            </div>
+                            <p class="mb-1">{{ geschenk.beschreibung }}</p>
+                            <p class="text-muted mb-0">{{ geschenk.anlass.bezeichnung }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

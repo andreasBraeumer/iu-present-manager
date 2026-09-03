@@ -1,0 +1,9 @@
+{% extends 'base_app.html.twig' %}
+
+{% block title %}{{ anlass.bezeichnung }} {{ 'anlaesse.bearbeiten'|trans }}{% endblock %}
+
+{% block content %}
+    <h1>{{ anlass.bezeichnung }} {{ 'anlaesse.bearbeiten'|trans }}</h1>
+
+    {% include 'anlass/_form.html.twig' %}
+{% endblock %}

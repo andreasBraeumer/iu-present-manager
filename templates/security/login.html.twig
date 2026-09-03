@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ 'login.title'|trans }} {% endblock %}
+
+{% block body %}
+    <div class="d-flex align-items-center vh-100">
+        <main class="form-signin w-100 m-auto">
+            <form method="post">
+                {% for label, messages in app.flashes %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ label }}">{{ message|trans }}</div>
+                    {% endfor %}
+                {% endfor %}
+
+                {% if error %}
+                    <div class="alert alert-danger">
+                        {{ error.messageKey|trans(error.messageData, 'security') }}
+                    </div>
+                {% endif %}
+
+                {# {% if app.user %}
+                    <div class="mb-3">
+                        Angemeldet als {{ app.user.userIdentifier }} –
+                        <a href="{{ logout_path() }}">{{ 'login.logout'|trans }}</a>
+                    </div>
+                {% endif %} #}
+
+                <h1 class="h3 mb-3 fw-normal text-align-center">{{ 'login.title'|trans }}</h1>
+
+                <div class="form-floating">
+                    <input type="text"
+                           value="{{ last_username }}"
+                           name="_username"
+                           id="username"
+                           class="form-control"
+                           placeholder="{{ 'login.username'|trans }}"
+                           autocomplete="username"
+                           required
+                           autofocus>
+                    <label for="username">{{ 'login.username'|trans }}</label>
+                </div>
+                <div class="form-floating mt-2">
+                    <input type="password"
+                           name="_password"
+                           id="password"
+                           class="form-control"
+                           placeholder="{{ 'login.password'|trans }}"
+                           autocomplete="current-password"
+                           required>
+                    <label for="password">{{ 'login.password'|trans }}</label>
+                </div>
+
+                <input type="hidden"
+                       name="_csrf_token"
+                       data-controller="csrf-protection"
+                       value="{{ csrf_token('authenticate') }}">
+
+                <input type="hidden" name="_target_path" value="/dashboard">
+
+                <button class="btn btn-primary w-100 py-2" type="submit">
+                    {{ 'login.callToAction'|trans }}
+                </button>
+            </form>
+            <a href="{{ path('app_forgot_password_request') }}" class="d-flex justify-content-center w-100 py-2">
+                {{ 'login.forgotPassword'|trans }}
+            </a>
+            <a href="{{ path('app_register') }}" class="d-flex justify-content-center w-100 py-2">
+                {{ 'login.toRegister'|trans }}
+            </a>
+        </main>
+    </div>
+{% endblock %}

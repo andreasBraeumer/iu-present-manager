@@ -1,0 +1,17 @@
+@media print {
+    .no-print {
+        display: none !important;
+    }
+
+    body {
+        background: #fff;
+        color: #000;
+    }
+
+    .card,
+    .kartei-karte {
+        background: #fff;
+        box-shadow: none;
+        border-color: #999;
+    }
+}
