@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Geschenk;
 use App\Entity\User;
+use App\Enum\GeschenkStatus;
 use App\Repository\BenachrichtigungRepository;
 use App\Repository\PersonRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -23,8 +25,21 @@ final class DashboardController extends AbstractController
         /** @var User $user */
         $user = $this->getUser();
 
+        $geburtstage = [];
+        foreach ($personRepository->findGeburtstageImNaechstenMonat($user) as $person) {
+            $ideen = array_filter(
+                $person->getGeschenke()->toArray(),
+                static fn (Geschenk $geschenk) => GeschenkStatus::Verschenkt !== $geschenk->getStatus(),
+            );
+
+            $geburtstage[] = [
+                'person' => $person,
+                'ideen' => array_values($ideen),
+            ];
+        }
+
         return $this->render('dashboard/index.html.twig', [
-            'geburtstage' => $personRepository->findGeburtstageImNaechstenMonat($user),
+            'geburtstage' => $geburtstage,
             'benachrichtigungen' => $benachrichtigungRepository->findUngelesenForUser($user),
         ]);
     }

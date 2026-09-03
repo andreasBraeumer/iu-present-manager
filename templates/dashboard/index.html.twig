@@ -3,29 +3,31 @@
 {% block title %}{{ 'dashboard.title'|trans }}{% endblock %}
 
 {% block content %}
-    <h1 class="text-light">{{ 'dashboard.title'|trans }}</h1>
+    <h1 class="mb-1">{{ 'dashboard.title'|trans }}</h1>
+    <p class="kartei-buchstabe" style="border-bottom: none; margin-top: 0;">{{ 'dashboard.geburtstageTitel'|trans }}</p>
 
     {% if geburtstage is empty %}
-        <p class="text-light">{{ 'dashboard.keineGeburtstage'|trans }}</p>
+        <p>{{ 'dashboard.keineGeburtstage'|trans }}</p>
     {% else %}
-        <div class="alert alert-info">
-            <strong>{{ 'dashboard.geburtstageTitel'|trans }}</strong>
-            <ul class="mb-0">
-                {% for person in geburtstage %}
-                    <li>
-                        <a href="{{ path('app_person_show', {id: person.id}) }}">
-                            {{ person.vorname }} {{ person.nachname }}
-                        </a>
-                        – {{ person.geburtsdatum|date('d.m.') }}
-                    </li>
-                {% endfor %}
-            </ul>
+        <div class="kartei-schublade">
+            {% for eintrag in geburtstage %}
+                <a href="{{ path('app_person_show', {id: eintrag.person.id}) }}" class="kartei-schublade__karte text-decoration-none text-reset">
+                    <div class="kartei-schublade__name">{{ eintrag.person.vorname }} {{ eintrag.person.nachname }}</div>
+                    <div class="kartei-schublade__datum">{{ eintrag.person.geburtsdatum|date('d.m.') }}</div>
+                    {% if eintrag.ideen is not empty %}
+                        <div class="kartei-schublade__ideen">
+                            {{ 'dashboard.bekannteIdeen'|trans }}:
+                            {% for geschenk in eintrag.ideen %}{{ geschenk.titel }}{% if not loop.last %}, {% endif %}{% endfor %}
+                        </div>
+                    {% endif %}
+                </a>
+            {% endfor %}
         </div>
     {% endif %}
 
     {% if benachrichtigungen is not empty %}
-        <h2 class="text-light h5 mt-4">{{ 'benachrichtigungen.title'|trans }}</h2>
-        <ul class="list-group mb-3">
+        <h2 class="kartei-buchstabe">{{ 'benachrichtigungen.title'|trans }}</h2>
+        <ul class="list-group mb-3 kartei-zettel">
             {% for benachrichtigung in benachrichtigungen %}
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     <span>
@@ -43,8 +45,8 @@
         </ul>
     {% endif %}
 
-    <div class="d-flex gap-2 mt-3">
+    <div class="d-flex gap-2 mt-4">
         <a href="{{ path('app_person_index') }}" class="btn btn-primary">{{ 'nav.personen'|trans }}</a>
-        <a href="{{ path('app_anlass_index') }}" class="btn btn-secondary">{{ 'nav.anlaesse'|trans }}</a>
+        <a href="{{ path('app_anlass_index') }}" class="btn btn-outline-secondary">{{ 'nav.anlaesse'|trans }}</a>
     </div>
 {% endblock %}
