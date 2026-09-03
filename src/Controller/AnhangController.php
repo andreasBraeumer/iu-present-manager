@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Anhang;
 use App\Entity\Geschenk;
+use App\Enum\AnhangTyp;
 use App\Form\AnhangType;
+use App\Service\AnhangBildSpeicherer;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,7 +16,7 @@ use Symfony\Component\Routing\Attribute\Route;
 final class AnhangController extends AbstractController
 {
     #[Route('/geschenke/{geschenk}/anhaenge/neu', name: 'app_anhang_new', methods: ['POST'])]
-    public function new(Request $request, Geschenk $geschenk, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, Geschenk $geschenk, EntityManagerInterface $entityManager, AnhangBildSpeicherer $anhangBildSpeicherer): Response
     {
         $this->denyAccessUnlessOwner($geschenk);
 
@@ -25,8 +27,19 @@ final class AnhangController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($anhang);
-            $entityManager->flush();
+            $bilddatei = $form->get('bilddatei')->getData();
+
+            if (null !== $bilddatei) {
+                $anhang->setTyp(AnhangTyp::Bild);
+                $anhang->setInhalt($anhangBildSpeicherer->speichern($bilddatei));
+            }
+
+            if ($anhang->getInhalt()) {
+                $entityManager->persist($anhang);
+                $entityManager->flush();
+            } else {
+                $this->addFlash('danger', 'anhaenge.ungueltig');
+            }
         } else {
             $this->addFlash('danger', 'anhaenge.ungueltig');
         }

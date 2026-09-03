@@ -6,6 +6,7 @@ use App\Entity\Anhang;
 use App\Enum\AnhangTyp;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -22,6 +23,12 @@ class AnhangType extends AbstractType
             ])
             ->add('inhalt', TextType::class, [
                 'label' => 'anhaenge.feld.inhalt',
+                'required' => false,
+            ])
+            ->add('bilddatei', FileType::class, [
+                'label' => 'anhaenge.feld.bilddatei',
+                'mapped' => false,
+                'required' => false,
             ])
         ;
     }
