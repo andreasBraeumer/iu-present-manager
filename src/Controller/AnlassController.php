@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Anlass;
 use App\Form\AnlassType;
+use App\Service\StandardAnlaesse;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,8 +15,10 @@ use Symfony\Component\Routing\Attribute\Route;
 final class AnlassController extends AbstractController
 {
     #[Route('', name: 'app_anlass_index', methods: ['GET'])]
-    public function index(EntityManagerInterface $entityManager): Response
+    public function index(EntityManagerInterface $entityManager, StandardAnlaesse $standardAnlaesse): Response
     {
+        $standardAnlaesse->sicherstellen();
+
         $anlaesse = $entityManager->getRepository(Anlass::class)->findBy([], ['bezeichnung' => 'ASC']);
 
         return $this->render('anlass/index.html.twig', [
