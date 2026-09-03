@@ -3,7 +3,22 @@
 {% block title %}{{ 'geschenke.ideeErfassen'|trans }}{% endblock %}
 
 {% block content %}
-    <h1 class="text-light">{{ 'geschenke.ideeErfassen'|trans }} – {{ person.vorname }}</h1>
+    <h1>{{ 'geschenke.ideeErfassen'|trans }} – {{ person.vorname }}</h1>
 
-    {% include 'geschenk/_form.html.twig' %}
+    {{ form_start(form, {attr: {enctype: 'multipart/form-data'}}) }}
+    {{ form_row(form.titel) }}
+    {{ form_row(form.beschreibung) }}
+    {{ form_row(form.anlass) }}
+    {{ form_row(form.status) }}
+    {{ form_row(form.geschaetzterPreis) }}
+    {{ form_row(form.datum) }}
+
+    <h2 class="kartei-buchstabe">{{ 'anhaenge.title'|trans }}</h2>
+    <p class="text-muted">{{ 'anhaenge.optionalHinweis'|trans }}</p>
+    {{ form_row(anhangForm.typ) }}
+    {{ form_row(anhangForm.inhalt) }}
+    {{ form_row(anhangForm.bilddatei) }}
+
+    <button class="btn btn-primary mt-3" type="submit">{{ 'geschenke.speichern'|trans }}</button>
+    {{ form_end(form) }}
 {% endblock %}
