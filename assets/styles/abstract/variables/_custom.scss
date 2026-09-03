@@ -1,3 +1,70 @@
-/* Color Scheme */
-$bg-primary: #2b3035;
-$white: #fff;
+:root {
+    --kartei-papier: #F3E8D4;
+    --kartei-papier-karte: #EADFC8;
+    --kartei-tinte: #2B2117;
+    --kartei-akzent: #7A2E2E;
+    --kartei-akzent-dunkel: #5E2222;
+    --kartei-messing: #C79A4B;
+    --kartei-messing-dunkel: #A8762E;
+    --kartei-stuetz: #8A7A66;
+    --kartei-fehler: #B5502A;
+    --kartei-fehler-dunkel: #8F3D1F;
+    --kartei-erfolg: #5F7350;
+    --kartei-erfolg-dunkel: #45543A;
+    --kartei-rand: #D2C2A0;
+    --kartei-schatten: rgba(43, 33, 23, 0.18);
+
+    --bs-body-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --bs-font-monospace: ui-monospace, "SF Mono", "Cascadia Mono", Consolas, "Liberation Mono", monospace;
+    --bs-body-bg: var(--kartei-papier);
+    --bs-body-color: var(--kartei-tinte);
+    --bs-emphasis-color: var(--kartei-tinte);
+    --bs-secondary-color: #5C4F3D;
+    --bs-border-color: var(--kartei-rand);
+    --bs-border-color-translucent: rgba(43, 33, 23, 0.15);
+    --bs-border-radius: 0.25rem;
+    --bs-border-radius-sm: 0.15rem;
+    --bs-border-radius-lg: 0.35rem;
+    --bs-box-shadow: 0 0.5rem 1rem var(--kartei-schatten);
+    --bs-link-color: var(--kartei-akzent);
+    --bs-link-color-rgb: 122, 46, 46;
+    --bs-link-hover-color: var(--kartei-akzent-dunkel);
+    --bs-link-hover-color-rgb: 94, 34, 34;
+    --bs-focus-ring-color: rgba(122, 46, 46, 0.35);
+
+    --bs-primary: #7A2E2E;
+    --bs-primary-rgb: 122, 46, 46;
+    --bs-primary-text-emphasis: #4A1C1C;
+    --bs-primary-bg-subtle: #EDD9D3;
+    --bs-primary-border-subtle: #D9B3AA;
+
+    --bs-secondary: #8A7A66;
+    --bs-secondary-rgb: 138, 122, 102;
+    --bs-secondary-text-emphasis: #4A4030;
+    --bs-secondary-bg-subtle: #E8E1D3;
+    --bs-secondary-border-subtle: #D2C7B0;
+
+    --bs-success: #5F7350;
+    --bs-success-rgb: 95, 115, 80;
+    --bs-success-text-emphasis: #33402A;
+    --bs-success-bg-subtle: #DCE3D0;
+    --bs-success-border-subtle: #B7C4A3;
+
+    --bs-info: #C79A4B;
+    --bs-info-rgb: 199, 154, 75;
+    --bs-info-text-emphasis: #6B4B1A;
+    --bs-info-bg-subtle: #F3E2C0;
+    --bs-info-border-subtle: #E0C48C;
+
+    --bs-warning: #A8762E;
+    --bs-warning-rgb: 168, 118, 46;
+    --bs-warning-text-emphasis: #5C3E14;
+    --bs-warning-bg-subtle: #EFD8AC;
+    --bs-warning-border-subtle: #DBB877;
+
+    --bs-danger: #B5502A;
+    --bs-danger-rgb: 181, 80, 42;
+    --bs-danger-text-emphasis: #6B2E15;
+    --bs-danger-bg-subtle: #F0D6C6;
+    --bs-danger-border-subtle: #DFA98A;
+}

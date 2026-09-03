@@ -4,29 +4,47 @@
 
 {% block content %}
     <div class="d-flex justify-content-between align-items-center mb-3">
-        <h1 class="text-light mb-0">{{ 'personen.title'|trans }}</h1>
+        <h1 class="mb-0">{{ 'personen.title'|trans }}</h1>
         <a href="{{ path('app_person_new') }}" class="btn btn-primary">{{ 'personen.neu'|trans }}</a>
     </div>
 
     {% if personen is empty %}
-        <p class="text-light">{{ 'personen.leer'|trans }}</p>
+        <p>{{ 'personen.leer'|trans }}</p>
     {% else %}
-        <div class="row row-cols-1 row-cols-md-3 g-3">
-            {% for person in personen %}
-                <div class="col">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ person.vorname }} {{ person.nachname }}</h5>
-                            {% if person.geburtsdatum %}
-                                <p class="card-text text-muted">{{ 'personen.feld.geburtsdatum'|trans }}: {{ person.geburtsdatum|date('d.m.Y') }}</p>
-                            {% endif %}
-                            <a href="{{ path('app_person_show', {id: person.id}) }}" class="btn btn-sm btn-outline-primary">
-                                {{ 'personen.ansehen'|trans }}
-                            </a>
-                        </div>
-                    </div>
-                </div>
+        {% set buchstaben = [] %}
+        {% for person in personen %}
+            {% set erster = person.vorname|slice(0, 1)|upper %}
+            {% if erster not in buchstaben %}
+                {% set buchstaben = buchstaben|merge([erster]) %}
+            {% endif %}
+        {% endfor %}
+
+        <nav class="kartei-sprung">
+            {% for buchstabe in ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'] %}
+                {% if buchstabe in buchstaben %}
+                    <a href="#buchstabe-{{ buchstabe }}">{{ buchstabe }}</a>
+                {% else %}
+                    <span>{{ buchstabe }}</span>
+                {% endif %}
             {% endfor %}
-        </div>
+        </nav>
+
+        {% set aktuellerBuchstabe = null %}
+        {% for person in personen %}
+            {% set buchstabe = person.vorname|slice(0, 1)|upper %}
+            {% if buchstabe != aktuellerBuchstabe %}
+                <h2 class="kartei-buchstabe" id="buchstabe-{{ buchstabe }}">{{ buchstabe }}</h2>
+                {% set aktuellerBuchstabe = buchstabe %}
+            {% endif %}
+            <a href="{{ path('app_person_show', {id: person.id}) }}" class="kartei-karte--zeile">
+                <span class="kartei-karte--zeile__name">{{ person.vorname }} {{ person.nachname }}</span>
+                <span class="kartei-karte--zeile__info">
+                    {% if person.beziehung %}{{ person.beziehung }}{% endif %}
+                    {% if person.geburtsdatum %}
+                        {% if person.beziehung %} · {% endif %}{{ 'personen.feld.geburtsdatum'|trans }} {{ person.geburtsdatum|date('d.m.Y') }}
+                    {% endif %}
+                </span>
+            </a>
+        {% endfor %}
     {% endif %}
 {% endblock %}

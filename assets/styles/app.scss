@@ -5,8 +5,12 @@
 @import 'base/base';
 
 /* component */
+@import 'component/controls';
+@import 'component/cards';
 @import 'component/sidebar';
 
 /* Page */
 @import 'page/account/sign-in';
+@import 'page/dashboard';
+@import 'page/personen';
 @import 'page/druckansicht';

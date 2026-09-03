@@ -6,7 +6,7 @@
     <div class="d-flex align-items-center vh-100">
         <main class="form-signin w-100 m-auto">
 
-            <h1 class="h3 mb-3 fw-normal text-light">{{ 'register.title'|trans }}</h1>
+            <h1 class="h3 mb-3 fw-normal">{{ 'register.title'|trans }}</h1>
 
             {{ form_errors(registrationForm) }}
 
@@ -22,11 +22,6 @@
                 row_attr: {class: 'form-floating mt-2'},
                 attr: {placeholder: 'login.password'|trans},
                 label: 'login.password'|trans
-            }) }}
-
-            {{ form_row(registrationForm.agreeTerms, {
-                row_attr: {class: 'form-check mt-3 text-light'},
-                label: 'register.agreeTerms'|trans
             }) }}
 
             <button class="btn btn-primary w-100 py-2" type="submit">

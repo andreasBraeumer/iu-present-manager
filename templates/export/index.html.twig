@@ -5,7 +5,7 @@
 {% block body %}
     <div class="container py-4">
         <div class="d-flex justify-content-between align-items-center mb-4 no-print">
-            <h1 class="text-light mb-0">{{ 'export.title'|trans }}</h1>
+            <h1 class="mb-0">{{ 'export.title'|trans }}</h1>
             <div class="d-flex gap-2">
                 <button class="btn btn-primary" onclick="window.print()">{{ 'export.drucken'|trans }}</button>
                 <a href="{{ path('app_dashboard') }}" class="btn btn-outline-secondary">{{ 'export.zurueck'|trans }}</a>
@@ -14,24 +14,20 @@
 
         {% for eintrag in personen %}
             <div class="mb-4 pb-2 border-bottom">
-                <h2 class="text-light">{{ eintrag.person.vorname }} {{ eintrag.person.nachname }}</h2>
+                <h2>{{ eintrag.person.vorname }} {{ eintrag.person.nachname }}</h2>
                 {% if eintrag.person.geburtsdatum %}
                     <p class="text-muted">{{ 'personen.feld.geburtsdatum'|trans }}: {{ eintrag.person.geburtsdatum|date('d.m.Y') }}</p>
                 {% endif %}
 
-                <h3 class="h5 text-light">{{ 'personen.ideenTitel'|trans }}</h3>
+                <h3 class="h5">{{ 'personen.ideenTitel'|trans }}</h3>
                 {% if eintrag.ideen is empty %}
-                    <p class="text-light">{{ 'personen.keineIdeen'|trans }}</p>
+                    <p>{{ 'personen.keineIdeen'|trans }}</p>
                 {% else %}
                     <ul>
                         {% for geschenk in eintrag.ideen %}
-                            <li class="text-light">
+                            <li>
                                 {{ geschenk.titel }}
-                                <span class="badge {{ {
-                                    idee: 'bg-secondary',
-                                    geplant: 'bg-info',
-                                    besorgt: 'bg-warning'
-                                }[geschenk.status.value] }}">
+                                <span class="kartei-reiter kartei-reiter--{{ geschenk.status.value }}">
                                     {{ ('geschenke.status.' ~ geschenk.status.value)|trans }}
                                 </span>
                                 – {{ geschenk.anlass.bezeichnung }}
@@ -40,13 +36,13 @@
                     </ul>
                 {% endif %}
 
-                <h3 class="h5 text-light">{{ 'personen.vergangeneGeschenkeTitel'|trans }}</h3>
+                <h3 class="h5">{{ 'personen.vergangeneGeschenkeTitel'|trans }}</h3>
                 {% if eintrag.vergangeneGeschenke is empty %}
-                    <p class="text-light">{{ 'personen.keineVergangenenGeschenke'|trans }}</p>
+                    <p>{{ 'personen.keineVergangenenGeschenke'|trans }}</p>
                 {% else %}
                     <ul>
                         {% for geschenk in eintrag.vergangeneGeschenke %}
-                            <li class="text-light">
+                            <li>
                                 {{ geschenk.titel }} – {{ geschenk.anlass.bezeichnung }}
                                 {% if geschenk.datum %}({{ geschenk.datum|date('d.m.Y') }}){% endif %}
                             </li>

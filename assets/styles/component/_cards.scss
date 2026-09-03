@@ -1,0 +1,92 @@
+.card {
+    background-color: var(--kartei-papier-karte);
+    border: 1px solid var(--kartei-rand);
+    box-shadow: 0.15rem 0.2rem 0 var(--kartei-schatten);
+}
+
+.card.border-info {
+    border-color: var(--kartei-messing) !important;
+    border-width: 1px;
+}
+
+.kartei-karte {
+    position: relative;
+    background-color: var(--kartei-papier-karte);
+    border: 1px solid var(--kartei-rand);
+    border-radius: var(--bs-border-radius);
+    box-shadow: 0.15rem 0.2rem 0 var(--kartei-schatten);
+}
+
+.kartei-karte::before {
+    content: "";
+    position: absolute;
+    top: -1px;
+    left: 1.25rem;
+    width: 2.5rem;
+    height: 0.4rem;
+    background-color: var(--kartei-messing);
+    border-radius: 0 0 0.2rem 0.2rem;
+}
+
+.kartei-reiter {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-family: var(--bs-font-monospace);
+    font-size: 0.72rem;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.55rem;
+    border-radius: 999px;
+    background-color: var(--kartei-papier);
+    border: 1px solid var(--kartei-rand);
+    color: var(--kartei-stuetz);
+}
+
+.kartei-reiter--idee {
+    color: var(--kartei-stuetz);
+    border-color: var(--kartei-stuetz);
+}
+
+.kartei-reiter--geplant {
+    background-color: rgba(199, 154, 75, 0.18);
+    border-color: var(--kartei-messing);
+    color: var(--kartei-messing-dunkel);
+}
+
+.kartei-reiter--besorgt {
+    background-color: var(--kartei-messing-dunkel);
+    border-color: var(--kartei-messing-dunkel);
+    color: var(--kartei-papier);
+}
+
+.kartei-reiter--verschenkt {
+    background-color: var(--kartei-akzent);
+    border-color: var(--kartei-akzent);
+    color: var(--kartei-papier);
+}
+
+.table {
+    --bs-table-bg: transparent;
+    --bs-table-color: var(--kartei-tinte);
+    --bs-table-striped-bg: rgba(43, 33, 23, 0.04);
+    --bs-table-border-color: var(--kartei-rand);
+}
+
+.table > thead {
+    font-family: var(--bs-font-monospace);
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--kartei-stuetz);
+}
+
+.list-group-item {
+    background-color: var(--kartei-papier-karte);
+    border-color: var(--kartei-rand);
+    color: var(--kartei-tinte);
+}
+
+.alert {
+    border-width: 1px;
+}
